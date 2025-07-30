@@ -76,7 +76,7 @@ if __name__ == "__main__":
 
             parts = range_input.split(' ')
             if len(parts) != 2:
-                print("Invalid format. Please enter two numbers separated by a comma (e.g., 0,4).")
+                print("Invalid format. Please enter two numbers separated by a space.")
                 continue
 
             start_gear = int(parts[0].strip())
