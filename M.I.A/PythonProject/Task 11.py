@@ -1,5 +1,4 @@
 import time
-import os
 
 def display_gear(gear_number):
     grid = []
@@ -8,6 +7,9 @@ def display_gear(gear_number):
         for _ in range(4):
             row.append(' ')
         grid.append(row)
+
+
+
 
     segments_config = {
         0: ['a', 'b', 'c', 'd', 'e', 'f'],
@@ -48,8 +50,7 @@ def display_gear(gear_number):
     for row in grid:
         print("".join(row))
 
-def clear_screen():
-    _ = os.system('cls')
+
 
 
 def animate_range(start_gear, end_gear, delay=0.5):
@@ -59,16 +60,14 @@ def animate_range(start_gear, end_gear, delay=0.5):
     display_range = range(start_gear, end_gear + step, step)
 
     for gear in display_range:
-        clear_screen()
         print(f"Displaying Gear: {gear}")
         display_gear(gear)
         time.sleep(delay)
-    clear_screen()
 
 if __name__ == "__main__":
     while True:
         try:
-            range_input = input("Enter gear range (e.g., 0,4) or 'q' to quit: ").lower()
+            range_input = input("Enter gear range from 0 to 8 or 'q' to quit: ").lower()
 
             if range_input == 'q':
                 print("Exiting gear display.")
