@@ -12,3 +12,10 @@ Then, I created a for loop that print the gear within the display range and appl
 Then, the while true to perform and endless loop until the user input the letter (q) and use the .split function to can read the input of the user that separated by a space
 
 
+### Code explanation of the Second task
+Firstly creating the encode function and I used (|||) as a separator to separate between the each string and change the list to a big string then send this string to decode function and separate between the substrings based on ||| separator
+Then, create a function that takes the input from the user and create a terminator that I think that It will not be used, {I have a second approach to use (ctrl+z) as a terminator but I thought that the commander uses radio so no sense to use a command for laptops}.
+Then, in the main function I handle that If the commander didn’t send any command if he didn’t send any thing (literally) then I print the outputs as mentioned in the example you gives me
+
+
+
