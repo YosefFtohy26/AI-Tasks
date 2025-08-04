@@ -71,9 +71,19 @@ Calculate Damage: It calculates the final_damage by applying the move's damage r
 3. The main() Function (Race Orchestration)
 This function contains the primary logic for the simulation.
 Instantiation: It creates the verstappen and mostafa objects.
-Game Loop: The while loop controls the flow of the race. Its condition is:
+Game Loop: The while loop controls the flow of the race. Its condition is:verstappen.tire_health > 0: The race continues as long as Verstappen has tire health.
+mostafa.tire_health > 0: The race continues as long as Mostafa has tire health.
+no_moves_in_a_row < 2: This is the key update to prevent an infinite loop. It ends the race if two consecutive turns (one for each driver) are skipped due to a lack of affordable moves.
+Turn Switching: After each turn, the current_racer and opponent_racer variables are swapped using the Pythonic tuple unpacking syntax.
+
+Winner Determination: Once the loop terminates, the program checks which condition ended the race (tire health or skipped turns) and declares the appropriate winner. If the race ended due to no moves, the winner is the racer with the most remaining tire health.
 verstappen.tire_health > 0: The race continues as long as Verstappen has tire health.
 mostafa.tire_health > 0: The race continues as long as Mostafa has tire health.
 no_moves_in_a_row < 2: This is the key update to prevent an infinite loop. It ends the race if two consecutive turns (one for each driver) are skipped due to a lack of affordable moves.
 Turn Switching: After each turn, the current_racer and opponent_racer variables are swapped using the Pythonic tuple unpacking syntax.
+
+### The bouns of task 1.3: 
+adding a voice command feature so now both Verstappen and Mostafa can play using their voices instead of just typing. I used the speech_recognition library with google’s free speech‑to‑text so it listens through the mic and then tries to match the spoken words with the available moves. if it doesn’t understand what the player said, it asks again or lets them type the move number as a fallback.
+the function get_voice_command is the part that records from the mic, adjusts for background noise, sends it for transcription, and checks if the words match any move name. then in _get_user_choice, I made it so the game first tries listening for a move, and if that fails, the player can still type.
+basically you just say something like “turbo start” or “drs boost” when it’s your turn, and the system will run that move. if it didn’t catch what you said, you just type the number.
 Winner Determination: Once the loop terminates, the program checks which condition ended the race (tire health or skipped turns) and declares the appropriate winner. If the race ended due to no moves, the winner is the racer with the most remaining tire health.
