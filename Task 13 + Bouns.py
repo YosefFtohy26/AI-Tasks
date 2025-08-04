@@ -1,4 +1,6 @@
 import time
+import speech_recognition as sr
+
 
 class Racer:
     def __init__(self, name):
@@ -7,6 +9,32 @@ class Racer:
         self.fuel = 500
         self.offensive_moves = {}
         self.defensive_moves = {}
+
+    def get_voice_command(self, moves):
+            recognizer = sr.Recognizer()
+            mic = sr.Microphone()
+            print(f"🎙️ {self.name}, say your command...")
+
+            with mic as source:
+                recognizer.adjust_for_ambient_noise(source)
+                audio = recognizer.listen(source)
+
+            try:
+                command = recognizer.recognize_google(audio).strip().lower()
+                print(f"✅ You said: {command}")
+
+                for move in moves.keys():
+                    if move.lower() in command:
+                        return move
+
+                print("❌ Command not recognized. Try again.")
+                return None
+            except sr.UnknownValueError:
+                print("❌ Could not understand audio. Please repeat.")
+                return None
+            except sr.RequestError:
+                print("❌ Speech service unavailable. Switching to manual input.")
+                return None
 
     def _print_stats(self):
         print(f"[{self.name}] Stats: | Fuel: {self.fuel} | Tire Health: {self.tire_health}")
@@ -28,15 +56,19 @@ class Racer:
 
     def _get_user_choice(self, prompt, move_names):
         while True:
+            print("Say a move name or type its number.")
+            move = self.get_voice_command({name: None for name in move_names})
+            if move:
+                return move
+
             try:
                 choice = int(input(prompt).strip())
                 if 1 <= choice <= len(move_names):
                     return move_names[choice - 1]
-                if len(move_names) > 0 and prompt.startswith("Select a defensive") and choice == 0:
-                    return "none"
-                print("Invalid choice. Please enter a number from the list.")
             except ValueError:
-                print("Invalid input. Please enter a number.")
+                pass
+
+            print("Invalid choice. Please try again.")
 
     def apply_damage(self, damage):
         self.tire_health -= damage
